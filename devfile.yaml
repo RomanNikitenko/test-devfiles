@@ -1,65 +1,57 @@
-schemaVersion: 2.1.0
+schemaVersion: 2.2.0
 metadata:
-  name: python-django
-  displayName: Django
-  description: "Django is a high-level Python web framework that enables rapid development of secure and maintainable websites.
-    Built by experienced developers, Django takes care of much of the hassle of web development, so you can focus on writing your app without needing to reinvent the wheel.
-    It is free and open source, has a thriving and active community, great documentation, and many options for free and paid-for support."
-  icon: https://static.djangoproject.com/img/logos/django-logo-positive.svg
+  name: python
+  projectType: Python
+  displayName: Python
+  icon: https://raw.githubusercontent.com/devfile-samples/devfile-stack-icons/main/python.svg
+  description:
+    'Python is an interpreted, object-oriented, high-level programming language with dynamic semantics.
+    Its high-level built in data structures, combined with dynamic typing and dynamic binding, make it very attractive for Rapid Application Development, as well as for use as a scripting or glue language to connect existing components together.'
+  language: Python
+  version: 1.0.1
+  provider: Red Hat
   tags:
-    - Django
     - Python
     - Pip
-  projectType: Django
-  language: Python
-  provider: Red Hat
-  version: 2.1.0
-starterProjects:
-  - name: django-example
-    git:
-      remotes:
-        origin: https://github.com/devfile-samples/python-django-ex
+    - Flask
+  supportUrl: https://github.com/devfile-samples/devfile-support#support-information
+  attributes:
+    alpha.dockerimage-port: 8081
+parent:
+  id: python
+  registryUrl: 'https://registry.devfile.io'
 components:
-  - name: py-web
-    container:
-      image: registry.access.redhat.com/ubi9/python-39:1-161
-      args: ["tail", "-f", "/dev/null"]
-      mountSources: true
+  - name: image-build
+    image:
+      imageName: python-image:latest
+      dockerfile:
+        uri: docker/Dockerfile
+        buildContext: .
+        rootRequired: false
+  - name: kubernetes-deploy
+    attributes:
+      deployment/replicas: 1
+      deployment/cpuRequest: 10m
+      deployment/memoryRequest: 50Mi
+      deployment/container-port: 8081
+    kubernetes:
+      uri: deploy.yaml
       endpoints:
-        - name: http-django
-          targetPort: 8000
-        - exposure: none
-          name: debug
-          targetPort: 5858
-      env:
-        - name: DEBUG_PORT
-          value: '5858'
+      - name: http-8081
+        targetPort: 8081
+        path: /
 commands:
-  - id: pip-install-requirements
-    exec:
-      commandLine: pip install -r requirements.txt
-      workingDir: ${PROJECT_SOURCE}
+  - id: build-image
+    apply:
+      component: image-build
+  - id: deployk8s
+    apply:
+      component: kubernetes-deploy
+  - id: deploy
+    composite:
+      commands:
+        - build-image
+        - deployk8s
       group:
-        kind: build
+        kind: deploy
         isDefault: true
-      component: py-web
-  - id: run-app
-    exec:
-      commandLine: 'python manage.py runserver 0.0.0.0:8000'
-      workingDir: ${PROJECT_SOURCE}
-      component: py-web
-      group:
-        kind: run
-        isDefault: true
-  - id: run-migrations
-    exec:
-      commandLine: 'python manage.py migrate'
-      workingDir: ${PROJECT_SOURCE}
-      component: py-web
-  - id: debug
-    exec:
-      commandLine: 'pip install debugpy && export DEBUG_MODE=True && python -m debugpy --listen 0.0.0.0:${DEBUG_PORT} manage.py runserver 0.0.0.0:8000 --noreload --nothreading'
-      workingDir: ${PROJECT_SOURCE}
-      component: py-web
-      group:
-        kind: debug
