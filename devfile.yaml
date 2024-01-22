@@ -45,7 +45,7 @@ commands:
     exec:
       component: tools
       commandLine: 'mvn -Dmaven.repo.local=/home/user/.m2/repository compile'
-      workingDir: ${PROJECT_SOURCE}
+      workingDir: /projects/community
   - id: dev-run
     exec:
       component: tools
