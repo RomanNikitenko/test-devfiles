@@ -1,2 +1,2 @@
 # test-devfiles
-[Basic Node.js](https://registry.devfile.io/viewer/devfiles/community/nodejs-basic) Devfile
+[Go Runtime](https://registry.devfile.io/viewer/devfiles/community/go) Devfile
