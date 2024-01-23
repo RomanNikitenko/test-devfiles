@@ -1,2 +1,2 @@
 # test-devfiles
-[Go Runtime](https://registry.devfile.io/viewer/devfiles/community/go) Devfile
+[Basic Spring Boot](https://registry.devfile.io/viewer/devfiles/community/java-springboot-basic) Devfile
