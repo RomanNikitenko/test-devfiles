@@ -1,6 +1,6 @@
 schemaVersion: 2.1.0
 metadata:
-  name: go
+  name: go-runtime-devspaces
   displayName: Go Runtime
   description: Go (version 1.19.x) is an open source programming language that makes it easy to build simple, reliable, and efficient software.
   icon: https://raw.githubusercontent.com/devfile-samples/devfile-stack-icons/main/golang.svg
