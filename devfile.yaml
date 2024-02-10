@@ -1,6 +1,6 @@
 schemaVersion: 2.1.0
 metadata:
-  name: java-quarkus
+  name: java-quarkus-devspaces
   displayName: Quarkus Java
   description: Java application using Quarkus and OpenJDK 17
   icon: https://design.jboss.org/quarkus/logo/final/SVG/quarkus_icon_rgb_default.svg
