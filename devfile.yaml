@@ -1,6 +1,6 @@
 schemaVersion: 2.1.0
 metadata:
-  name: java-wildfly-bootable-jar
+  name: java-wildfly-bootable-jar-devspaces
   displayName: WildFly Bootable Jar
   description: Java application using WildFly in bootable Jar mode, OpenJDK 11 and Maven 3.6
   icon: https://design.jboss.org/wildfly/logo/final/wildfly_logomark.svg
