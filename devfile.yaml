@@ -100,6 +100,7 @@ components:
           name: debug
           targetPort: 5858
       image: registry.access.redhat.com/ubi8/openjdk-11:1.18-2
+      command: ["tail", "-f", "/dev/null"]
       memoryLimit: 512Mi
       mountSources: true
       volumeMounts:
